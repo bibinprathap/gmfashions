@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gmfashions/layouts/changepassword/change_password_screen.dart';
 import 'package:gmfashions/layouts/editprofile/edit_profile_screen.dart';
-import 'package:gmfashions/layouts/profile/profile_activity.dart';
+import 'package:gmfashions/layouts/profile/settings_screen_activity.dart';
 import 'package:gmfashions/utils/colors.dart';
 import 'package:gmfashions/utils/styles.dart';
 import 'package:gmfashions/utils/utils.dart';
 import 'package:gmfashions/utils/scale_aware/flutter_scale_aware.dart';
 
-class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key key}) : super(key: key);
+class SettingsScreen extends StatefulWidget {
+  SettingsScreen({Key key}) : super(key: key);
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _SettingsScreenState createState() => _SettingsScreenState();
 }
 
-class _ProfileScreenState extends ProfileScreenActivity {
+class _SettingsScreenState extends SettingsScreenActivity {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

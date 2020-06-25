@@ -13,7 +13,7 @@ abstract class SearchProductActivity
   List<Response> searchList = [];
 
   StreamController<SearchListChangeState> searchCtr =
-      StreamController<SearchListChangeState>.broadcast();
+  StreamController<SearchListChangeState>.broadcast();
 
   // Search List
 
@@ -40,7 +40,8 @@ abstract class SearchProductActivity
 
   // navigate product details
 
-  void navigateProductDetails(BuildContext context, String product, String id,String price) {
+  void navigateProductDetails(BuildContext context, String product, String id,
+      String price,bool isUserNull) {
     push(
         context: context,
         pushReplacement: false,
@@ -48,6 +49,7 @@ abstract class SearchProductActivity
           price: price,
           productName: product,
           productId: id,
+          isUserNull: isUserNull,
         ));
   }
 }

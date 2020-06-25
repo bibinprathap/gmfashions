@@ -50,7 +50,7 @@ class _DashboardState extends DashboardActivity {
         ),
         body: StreamBuilder<DashboardPageState>(
             stream: dashboardController.stream,
-            initialData: DashboardPageState.LOADING,
+            initialData: DashboardPageState.IDLE,
             builder: (context, snapshot) {
               print('Snap - ${snapshot.data}');
               switch (snapshot.data) {

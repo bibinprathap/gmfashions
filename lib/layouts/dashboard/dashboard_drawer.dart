@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gmfashions/layouts/profile/profile_screen.dart';
+import 'package:gmfashions/layouts/profile/settings_screen.dart';
 import 'package:gmfashions/profile_screen.dart';
 import 'package:gmfashions/utils/colors.dart';
 import 'package:gmfashions/utils/styles.dart';
@@ -35,7 +35,7 @@ class _DashboardDrawerState extends DrawerActivity {
             UserAccountsDrawerHeader(
               currentAccountPicture: Container(
                   height: context.scale(100),
-                  child: Image.asset('images/gm_logo.jpg')),
+                  child: Image.asset('images/final_logo.png')),
               decoration: BoxDecoration(color: white),
               accountName: widget.isUserNull
                   ? Text(
@@ -73,7 +73,7 @@ class _DashboardDrawerState extends DrawerActivity {
               Navigator.pop(context);
               navigateCategory(context);
             }),
-            Divider(
+         widget.isUserNull?Container():   Divider(
               thickness: 2,
             ),
             widget.isUserNull
@@ -85,7 +85,7 @@ class _DashboardDrawerState extends DrawerActivity {
 //            widget.isUserNull
 //                ? Container()
 //                : drawerListTile(Icons.person_outline, 'Profile', () {}),
-            Divider(
+            widget.isUserNull?Container(): Divider(
               thickness: 2,
             ),
             widget.isUserNull

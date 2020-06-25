@@ -42,6 +42,7 @@ class _ProductDetailsState extends ProductDetailsActivity {
       backgroundColor: white,
       endDrawer: DashboardDrawer(
         isUserNull: widget.isUserNull,
+
       ),
       body: StreamBuilder<ProductDetailsState>(
         stream: productDetailsctr.stream,
@@ -96,7 +97,7 @@ class _ProductDetailsState extends ProductDetailsActivity {
                         child: Container(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+//                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Image.asset(
                                 'images/errorImage.png',

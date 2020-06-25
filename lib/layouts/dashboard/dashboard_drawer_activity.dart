@@ -7,7 +7,7 @@ import 'package:gmfashions/layouts/address_list/address_list_screen.dart';
 import 'package:gmfashions/layouts/cart_list/cart_list_screen.dart';
 import 'package:gmfashions/layouts/category_list_view/category_list_view_screen.dart';
 import 'package:gmfashions/layouts/order_list/order_list_screen.dart';
-import 'package:gmfashions/layouts/profile/profile_screen.dart';
+import 'package:gmfashions/layouts/profile/settings_screen.dart';
 import 'package:gmfashions/utils/sp_keys.dart';
 import 'package:gmfashions/utils/styles.dart';
 import 'package:gmfashions/utils/utils.dart';
@@ -32,6 +32,8 @@ abstract class DrawerActivity extends State<DashboardDrawer> {
 
   logoutCustomer(BuildContext context) async {
     showDialog(
+        barrierDismissible: false,
+
         context: context,
         builder: (context) {
           return showCustomDialog(
@@ -71,7 +73,7 @@ abstract class DrawerActivity extends State<DashboardDrawer> {
 
 
   void navigateProfile(BuildContext context) {
-    push(context: context, pushReplacement: false, toWidget: ProfileScreen());
+    push(context: context, pushReplacement: false, toWidget: SettingsScreen());
   }
 
 

@@ -14,17 +14,18 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends RegisterActivity {
-@override
+  @override
   void initState() {
-  onInitState();
+    onInitState();
     super.initState();
   }
 
   @override
   void dispose() {
-     onDisposeMethod();
+    onDisposeMethod();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +71,9 @@ class _RegisterScreenState extends RegisterActivity {
                         SizedBox(
                           height: context.scale(5),
                         ),
-                        Text('Sign up and start shopping', style: headingTxt(14, context,color: Colors.black87)),
+                        Text('Sign up and start shopping',
+                            style:
+                                headingTxt(14, context, color: Colors.black87)),
                         SizedBox(
                           height: context.scale(15),
                         ),
@@ -78,7 +81,7 @@ class _RegisterScreenState extends RegisterActivity {
                         passwordField(),
                         confirmPasswordField(),
                         SizedBox(
-                          height: context.scale(10),
+                          height: context.scale(15),
                         ),
                         registerBtn()
                       ],
@@ -93,35 +96,37 @@ class _RegisterScreenState extends RegisterActivity {
 
   Widget registerBtn() {
     return StreamBuilder<RegisterPageState>(
-      stream: registerController.stream,
-      initialData: RegisterPageState.IDLE,
-      builder: (context, snapshot) {
-        switch(snapshot.data){
-          case RegisterPageState.IDLE:
-            return SizedBox(
-                width: double.infinity,
-                child: RaisedButton(
-                  elevation: 3,
-                  onPressed: checkEmailID,
-                  child: Text(
-                    'Add Address',
-                    style: btnTxt,
-                  ),
-                  color: orange,
-                  shape:
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                ));
-            break;
-          case RegisterPageState.LOADING:
-            return Center(child: CircularProgressIndicator(),);
-            break;
-          default:
-            return Center(child: CircularProgressIndicator(),);
-
-        }
-
-      }
-    );
+        stream: registerController.stream,
+        initialData: RegisterPageState.IDLE,
+        builder: (context, snapshot) {
+          switch (snapshot.data) {
+            case RegisterPageState.IDLE:
+              return SizedBox(
+                  width: double.infinity,
+                  child: RaisedButton(
+                    elevation: 3,
+                    onPressed: checkEmailID,
+                    child: Text(
+                      'Create Account',
+//                      'Add Address',
+                      style: btnTxt,
+                    ),
+                    color: orange,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ));
+              break;
+            case RegisterPageState.LOADING:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+              break;
+            default:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        });
   }
 
   //password
@@ -136,7 +141,7 @@ class _RegisterScreenState extends RegisterActivity {
         validator: (val) {
           if (val.isEmpty) {
             return 'Please Enter Your Password';
-          }else if(passwordController.text != confirmPassController.text){
+          } else if (passwordController.text != confirmPassController.text) {
             return 'Password Doesn\'t Match';
           }
           return null;
@@ -148,10 +153,14 @@ class _RegisterScreenState extends RegisterActivity {
         style: inputFieldPasswordTextStyle,
         decoration: InputDecoration(
           suffixIcon: IconButton(
-            icon: Icon(isObscure ? Icons.lock : Icons.lock_open,size: context.scale(20),),
-            onPressed: (){
-            changeObscure();
-          },),
+            icon: Icon(
+              isObscure ? Icons.visibility_off : Icons.visibility,
+//              size: context.scale(20),
+            ),
+            onPressed: () {
+              changeObscure();
+            },
+          ),
           hintText: 'Password',
           hintStyle: inputFieldHintPaswordTextStyle,
           contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
@@ -172,7 +181,7 @@ class _RegisterScreenState extends RegisterActivity {
         validator: (val) {
           if (val.isEmpty) {
             return 'Please Enter Your Confirm Password';
-          }else if(passwordController.text != confirmPassController.text){
+          } else if (passwordController.text != confirmPassController.text) {
             return 'Password Doesn\'t Match';
           }
           return null;
@@ -184,10 +193,14 @@ class _RegisterScreenState extends RegisterActivity {
         style: inputFieldPasswordTextStyle,
         decoration: InputDecoration(
           suffixIcon: IconButton(
-            icon: Icon(isObscure1 ? Icons.lock : Icons.lock_open,size: context.scale(20),),
-            onPressed: (){
+            icon: Icon(
+              isObscure1 ? Icons.visibility_off : Icons.visibility,
+//              size: context.scale(20),
+            ),
+            onPressed: () {
               changeConfirmPasswordObscure();
-            },),
+            },
+          ),
           hintText: 'Confirm Password',
           hintStyle: inputFieldHintPaswordTextStyle,
           contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
@@ -220,5 +233,4 @@ class _RegisterScreenState extends RegisterActivity {
       ),
     );
   }
-
 }

@@ -20,6 +20,8 @@ abstract class LoadingActivity extends State<LoadingScreen>{
 
   checkUser() async {
     loadingCtr.add(LoadingPageState.LOADING);
+    await Future.delayed(Duration(seconds: 3));
+
     String cId =  await storage.read(key:  Keys.customerID);
     print('cId - $cId');
     push(

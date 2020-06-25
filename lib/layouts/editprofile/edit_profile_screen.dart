@@ -13,7 +13,13 @@ class EditProfileScreen extends StatefulWidget {
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends ChangePasswordActivity {
+class _EditProfileScreenState extends EditProfileActivity {
+  @override
+  void dispose() {
+    onDispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +33,6 @@ class _EditProfileScreenState extends ChangePasswordActivity {
           style: TextStyle(color: black, fontSize: 18),
         ),
         centerTitle: true,
-
       ),
       body: StreamBuilder<EditProfilePageState>(
           stream: editController.stream,
@@ -66,16 +71,89 @@ class _EditProfileScreenState extends ChangePasswordActivity {
         key: formKey,
         child: Column(
           children: <Widget>[
-            textFields('Name', 'Sigma'),
-            textFields(
-              'E-mail',
-              'sigma@gmail.com',
-              type: TextInputType.emailAddress),
-            textFields('Mobile', '12344567', type: TextInputType.phone),
-            textFields('Address', 'Salem'),
-SizedBox(
-  height: 30,
-),
+            TextFormField(
+              initialValue: 'Sigma',
+//              keyboardType: type,
+              validator: (val) {
+                if (val.isEmpty) {
+                  return 'Please Enter Your Name';
+                }
+                return null;
+              },
+              onSaved: (val) {
+                usernameCntlr.text = val;
+              },
+              style: inputFieldPasswordTextStyle,
+              decoration: InputDecoration(
+                hintText: 'Enter Name',
+                hintStyle: inputFieldHintPaswordTextStyle,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              ),
+            ),
+            TextFormField(
+              initialValue: 'sigma@gmail.com',
+              keyboardType: TextInputType.emailAddress,
+              validator: (val) {
+                if (val.isEmpty) {
+                  return 'Please Enter Your E-mail';
+                }
+                return null;
+              },
+              onSaved: (val) {
+                emailCntlr.text = val;
+              },
+              style: inputFieldPasswordTextStyle,
+              decoration: InputDecoration(
+                hintText: 'Enter E-mail',
+                hintStyle: inputFieldHintPaswordTextStyle,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              ),
+            ),
+            TextFormField(
+              initialValue: '12344567',
+              keyboardType: TextInputType.phone,
+              validator: (val) {
+                if (val.isEmpty) {
+                  return 'Please Enter Your Mobile';
+                }
+                return null;
+              },
+              onSaved: (val) {
+                phoneCntlr.text = val;
+              },
+              style: inputFieldPasswordTextStyle,
+              decoration: InputDecoration(
+                hintText: 'Enter Mobile',
+                hintStyle: inputFieldHintPaswordTextStyle,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              ),
+            ),
+            TextFormField(
+              initialValue: 'Salem',
+              validator: (val) {
+                if (val.isEmpty) {
+                  return 'Please Enter Your Address';
+                }
+                return null;
+              },
+              onSaved: (val) {
+                addressCntlr.text = val;
+              },
+              style: inputFieldPasswordTextStyle,
+              decoration: InputDecoration(
+                hintText: 'Enter Address',
+                hintStyle: inputFieldHintPaswordTextStyle,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              ),
+            ),
+
+            SizedBox(
+              height: 30,
+            ),
 
 //            Spacer(),
             submitBtn(),

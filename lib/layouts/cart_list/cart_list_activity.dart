@@ -72,6 +72,7 @@ abstract class CartListActivity extends State<CartListScreen> {
 
   deleteCart(String cartID, int index, List<Response> list) {
     showDialog(
+      barrierDismissible: false,
         context: context,
         builder: (context) {
           return showCustomDialog(

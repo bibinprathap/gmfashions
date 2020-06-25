@@ -37,7 +37,7 @@ abstract class ProductDetailsActivity extends State<ProductDetails> {
   int iDiscount = 0;
   int currentIndex;
 
-  final qtyLoadingCntlr = StreamController<bool>();
+  final qtyLoadingCntlr = StreamController<bool>.broadcast();
 
 
   var unescape = new HtmlUnescape();

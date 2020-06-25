@@ -10,27 +10,42 @@ import 'package:image_picker/image_picker.dart';
 
 import 'edit_profile_screen.dart';
 
-enum EditProfilePageState{IDLE,LOADING,SUCCESS,ERROR}
+enum EditProfilePageState { IDLE, LOADING, SUCCESS, ERROR }
 
-enum ChangeImageState{IDLE,LOADING}
+enum ChangeImageState { IDLE, LOADING }
 
-abstract class ChangePasswordActivity extends State<EditProfileScreen>{
+abstract class EditProfileActivity extends State<EditProfileScreen> {
+  String username, email, phone, address, base64Img = '';
 
-  String username,email,phone,address,base64Img = '';
+  TextEditingController usernameCntlr = TextEditingController();
+  TextEditingController emailCntlr = TextEditingController();
+  TextEditingController phoneCntlr = TextEditingController();
+  TextEditingController addressCntlr = TextEditingController();
 
   int selectOption;
 
-  final GlobalKey<FormState>  formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   File img;
 
   // edit controller
 
-  StreamController<EditProfilePageState> editController = StreamController<EditProfilePageState>.broadcast();
+  StreamController<EditProfilePageState> editController =
+      StreamController<EditProfilePageState>.broadcast();
 
   // image controller
 
-  StreamController<ChangeImageState> changeImgCtr = StreamController<ChangeImageState>.broadcast();
+  StreamController<ChangeImageState> changeImgCtr =
+      StreamController<ChangeImageState>.broadcast();
+
+  onDispose(){
+    usernameCntlr.dispose();
+    emailCntlr.dispose();
+    phoneCntlr.dispose();
+    addressCntlr.dispose();
+
+  }
+
 
 
   // Image picker & cropper
@@ -64,9 +79,9 @@ abstract class ChangePasswordActivity extends State<EditProfileScreen>{
 
 // Post Profile Details
 
-  postEditProfile(){
+  postEditProfile() {
     editController.add(EditProfilePageState.LOADING);
-    if(formKey.currentState.validate()){
+    if (formKey.currentState.validate()) {
       formKey.currentState.save();
       editController.add(EditProfilePageState.IDLE);
     }
@@ -75,8 +90,8 @@ abstract class ChangePasswordActivity extends State<EditProfileScreen>{
 
 // Select Radio btn option
 
-   void selectRadioBtn(int val){
-       selectOption = val;
-       changeImgCtr.add(ChangeImageState.IDLE);
-   }
+  void selectRadioBtn(int val) {
+    selectOption = val;
+    changeImgCtr.add(ChangeImageState.IDLE);
+  }
 }

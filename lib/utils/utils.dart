@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -82,29 +83,38 @@ Widget imageWidget(
     double height,
     double width,
     BoxFit boxFit = BoxFit.fitWidth}) {
-  return ExtendedImage.network(
-    imageBaseURL + imageURL,
-//        imageURL,
+  return CachedNetworkImage(
     height: height,
-    fit: BoxFit.cover,
-    borderRadius: BorderRadius.circular(20),
-    loadStateChanged: (state) {
-      if (state.extendedImageLoadState == LoadState.loading) {
-        return Center(child: CircularProgressIndicator());
-      } else if (state.extendedImageLoadState == LoadState.completed) {
-        return ExtendedRawImage(
-          image: state.extendedImageInfo?.image,
-          fit: boxFit,
-        );
-      } else {
-        return Image.asset(
-          'images/gm_logo.jpg',
-//          fit: BoxFit.fitWidth,
-        height: 100,
-        );
-      }
-    },
+    width: width,
+    fit: boxFit,
+    placeholder: (context,url)=>Center(child: CircularProgressIndicator()),
+    errorWidget: (context, url, error) => Image.asset('images/gm_logo.jpg',height: 100,),
+    imageUrl: imageBaseURL + imageURL,
+
   );
+//  return ExtendedImage.network(
+//    imageBaseURL + imageURL,
+////        imageURL,
+//    height: height,
+//    fit: BoxFit.cover,
+//    borderRadius: BorderRadius.circular(20),
+//    loadStateChanged: (state) {
+//      if (state.extendedImageLoadState == LoadState.loading) {
+//        return Center(child: CircularProgressIndicator());
+//      } else if (state.extendedImageLoadState == LoadState.completed) {
+//        return ExtendedRawImage(
+//          image: state.extendedImageInfo?.image,
+//          fit: boxFit,
+//        );
+//      } else {
+//        return Image.asset(
+//          'images/gm_logo.jpg',
+////          fit: BoxFit.fitWidth,
+//        height: 100,
+//        );
+//      }
+//    },
+//  );
 }
 Column loadingWidget(BuildContext context) {
   return Column(
@@ -176,6 +186,9 @@ showFlushBar(BuildContext context, Color color, String title, IconData iconData,
 Widget showCustomDialog(
     {BuildContext context, String title, String content = '', onPressed}) {
   return AlertDialog(
+    elevation: 0,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+
     title: Text(
       title,
       textAlign: TextAlign.center,
@@ -226,9 +239,13 @@ Widget showCustomDialog(
 Future userNullLoginDialog(BuildContext context) {
   return showDialog(
       context: context,
+      barrierDismissible: false,
+
       builder: (context) => Padding(
             padding: const EdgeInsets.all(8.0),
             child: SimpleDialog(
+              elevation: 0,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[

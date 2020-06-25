@@ -104,7 +104,7 @@ navigateProductDetails(String id,String product,String price){
 
 ///search screen
 navigateSearchScreen(){
-  showSearch(context: context, delegate: SearchProductScreen());
+  showSearch(context: context, delegate: SearchProductScreen(isUserNull: widget.isUserNull));
 }
 
   Future<bool> willPopCallback() {

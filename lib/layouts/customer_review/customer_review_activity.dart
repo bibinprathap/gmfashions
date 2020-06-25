@@ -2,6 +2,7 @@ import 'dart:async';
 
 
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gmfashions/api/models/product_details_response_model.dart';
 import 'package:gmfashions/api/repository.dart';
 
@@ -10,6 +11,11 @@ import 'customer_review_screen.dart';
 enum ReviewListState{IDLE,LOADING,EMPTY,ERROR}
 abstract class CustomerReviewActivity extends  State<CustomerReviewScreen>{
   StreamController<ReviewListState> reviewCtr = StreamController<ReviewListState>();
+  final ratingCntlr = StreamController<double>.broadcast();
+
+  TextEditingController msgCntlr = TextEditingController();
+
+  final reviewMsgFormKey = GlobalKey<FormState>();
 
   double rating = 0;
   List<Review> reviewList = [];
@@ -22,7 +28,7 @@ abstract class CustomerReviewActivity extends  State<CustomerReviewScreen>{
 
   void ratingChange(double value) {
     rating = value;
-  //  reviewCtr.add(ReviewListState.IDLE);
+    ratingCntlr.add(rating);
   }
 
   customerReviewList(String id) async {
@@ -40,6 +46,19 @@ abstract class CustomerReviewActivity extends  State<CustomerReviewScreen>{
       print('Json Error');
       reviewCtr.add(ReviewListState.ERROR);
     }
+  }
+
+  postReview()async{
+    if(reviewMsgFormKey.currentState.validate()){
+      reviewMsgFormKey.currentState.save();
+      if(rating == null){
+        Fluttertoast.showToast(msg: 'Give Rating');
+      }else{
+        msgCntlr.clear();
+
+      }
+    }
+
   }
 
 }

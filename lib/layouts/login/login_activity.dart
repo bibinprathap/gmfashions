@@ -25,6 +25,7 @@ abstract class LoginActivity extends State<LoginScreen> {
 
   bool isChange = false;
 
+
   // formKey
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -33,8 +34,8 @@ abstract class LoginActivity extends State<LoginScreen> {
   final storage = FlutterSecureStorage();
 
   StreamController<LoginPageState> loginController =
-      StreamController<LoginPageState>();
-  final obscureCntlr = StreamController<bool>();
+      StreamController<LoginPageState>.broadcast();
+  final obscureCntlr = StreamController<bool>.broadcast();
 
 //  StreamController<SwitcherChangeState> switchCtr = StreamController<SwitcherChangeState>();
   void navigateRegister(BuildContext context) {
@@ -91,6 +92,8 @@ abstract class LoginActivity extends State<LoginScreen> {
               builder: (context) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SimpleDialog(
+                      elevation: 0,
+                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                      // title: Text('Oops!'),
                       title: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -128,4 +131,9 @@ abstract class LoginActivity extends State<LoginScreen> {
     obscureCntlr.add(val);
 
   }
+
+  submit(){
+
+  }
+
 }

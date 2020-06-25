@@ -29,6 +29,12 @@ class _CustomerReviewScreenState extends CustomerReviewActivity {
   }
 
   @override
+  void dispose() {
+    msgCntlr.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -86,36 +92,68 @@ class _CustomerReviewScreenState extends CustomerReviewActivity {
         context: context,
         builder: (context) {
           return AlertDialog(
+            elevation: 0,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             title: Text('Write a Review'),
             actions: <Widget>[
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cancel'),
+                textColor: red1,
+              ),
+              FlatButton(
+                onPressed: () {
+                  postReview();
+                },
                 child: Text('Submit'),
                 textColor: red1,
               )
             ],
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SmoothStarRating(
-                  onRatingChanged: ratingChange,
-                  starCount: 5,
-                  rating: rating,
-                  size: context.scale(35),
-                  color: orange,
-                  borderColor: orange,
-                ),
-                SizedBox(
-                  height: context.scale(10),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(hintText: 'Enter your Message'),
-                  maxLines: 4,
-                  minLines: 3,
-                ),
-              ],
+            content: Form(
+              key: reviewMsgFormKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text('Rate us'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  StreamBuilder<double>(
+                      stream: ratingCntlr.stream,
+                      initialData: 0.0,
+                      builder: (context, snapshot) {
+                        return SmoothStarRating(
+                          onRatingChanged: ratingChange,
+                          starCount: 5,
+                          rating: snapshot.data,
+                          size: context.scale(35),
+                          color: orange,
+                          borderColor: orange,
+                        );
+                      }),
+                  SizedBox(
+                    height: context.scale(10),
+                  ),
+                  TextFormField(
+                    cursorColor: red1,
+                    controller: msgCntlr,
+                    decoration: InputDecoration(
+                      hintText: 'Enter your Message',
+                    ),
+                    maxLines: 3,
+                    onSaved: (val) {
+                      msgCntlr.text = val;
+                    },
+                    validator: (val) =>
+                        val.isEmpty ? 'Enter Review Message' : null,
+//                    minLines: 3,
+                  ),
+                ],
+              ),
             ),
           );
         });

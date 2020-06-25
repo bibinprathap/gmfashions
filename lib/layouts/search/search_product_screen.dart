@@ -7,8 +7,8 @@ import 'package:gmfashions/utils/utils.dart';
 import 'package:gmfashions/utils/scale_aware/flutter_scale_aware.dart';
 
 class SearchProductScreen extends SearchProductActivity {
-//  final bool isUserNull;
-//  SearchProductScreen({ this.isUserNull}) ;
+  final bool isUserNull;
+  SearchProductScreen({ this.isUserNull}) ;
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -38,29 +38,41 @@ class SearchProductScreen extends SearchProductActivity {
   Widget buildSuggestions(BuildContext context) {
     if (query.isNotEmpty) getSearchList(query);
     return StreamBuilder<SearchListChangeState>(
-      stream: searchCtr.stream,
-      initialData: SearchListChangeState.IDLE,
-      builder: (context, snapshot) {
-        switch(snapshot.data){
-          case SearchListChangeState.IDLE:
-            return searchIdleState();
+        stream: searchCtr.stream,
+        initialData: SearchListChangeState.IDLE,
+        builder: (context, snapshot) {
+          switch (snapshot.data) {
+            case SearchListChangeState.IDLE:
+              return searchIdleState();
 
-            break;
-          case SearchListChangeState.LOADING:
-            return Center(child: CircularProgressIndicator(),);
-            break;
-          case SearchListChangeState.ERROR:
-            return Center(child: Text('Something Wrong!',style: headingTxt(16, context),),);
-            break;
-          case SearchListChangeState.EMPTY:
-            return Center(child: Text('List is Empty',style: headingTxt(16, context),),);
-            break;
-          default:
-            return Center(child: CircularProgressIndicator(),);
-
-        }
-      }
-    );
+              break;
+            case SearchListChangeState.LOADING:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+              break;
+            case SearchListChangeState.ERROR:
+              return Center(
+                child: Text(
+                  'Something Wrong!',
+                  style: headingTxt(16, context),
+                ),
+              );
+              break;
+            case SearchListChangeState.EMPTY:
+              return Center(
+                child: Text(
+                  'List is Empty',
+                  style: headingTxt(16, context),
+                ),
+              );
+              break;
+            default:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        });
   }
 
   // search list idle state
@@ -74,8 +86,8 @@ class SearchProductScreen extends SearchProductActivity {
         itemBuilder: (context, index) {
           return ListTile(
             onTap: () {
-              navigateProductDetails(
-                  context, searchList[index].name, searchList[index].productId,searchList[index].price);
+              navigateProductDetails(context, searchList[index].name,
+                  searchList[index].productId, searchList[index].price,isUserNull);
             },
             leading: SizedBox(
                 width: context.scale(100),
@@ -83,10 +95,11 @@ class SearchProductScreen extends SearchProductActivity {
                 child: imageWidget(
                     width: context.scale(100),
                     height: context.scale(100),
-                    imageURL: searchList[index].image)
+                    imageURL: searchList[index].image)),
+            title: Text(
+              searchList[index].name,
+              style: headingTxt(14, context, fontWeight: FontWeight.w500),
             ),
-            title:
-            Text(searchList[index].name, style: headingTxt(14, context,fontWeight: FontWeight.w500),),
             subtitle: Text(
               'Rs ${searchList[index].price.replaceAll('.0000', '')} /-',
               style: headingTxt(14, context),

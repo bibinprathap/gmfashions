@@ -21,15 +21,15 @@ class _LoginScreenState extends LoginActivity {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
-      key:  scaffoldKey,
+        backgroundColor: white,
+        key: scaffoldKey,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: white,
           actions: <Widget>[
             FlatButton(
               onPressed: () {
-               navigateRegister(context);
+                navigateRegister(context);
               },
               child: Text(
                 'Sign Up',
@@ -39,31 +39,28 @@ class _LoginScreenState extends LoginActivity {
           ],
         ),
         body: StreamBuilder<LoginPageState>(
-          stream: loginController.stream,
-          initialData: LoginPageState.IDLE,
-          builder: (context, snapshot) {
-            switch(snapshot.data){
-              case LoginPageState.IDLE:
-                return loginPageIdleState(context);
-                break;
-              case LoginPageState.LOADING:
-                return loadingPageState();
-                break;
+            stream: loginController.stream,
+            initialData: LoginPageState.IDLE,
+            builder: (context, snapshot) {
+              switch (snapshot.data) {
+                case LoginPageState.IDLE:
+                  return loginPageIdleState(context);
+                  break;
+                case LoginPageState.LOADING:
+                  return loadingPageState();
+                  break;
 //              case LoginPageState.SUCCESS:
 //                return AlertDialog(title: Text(''),)
 //                break;
-              case LoginPageState.ERROR:
-               return ServerErrorWidget();
-                break;
-              default :
-                return loadingPageState();
-                break;
-            }
-
-          }
-        ));
+                case LoginPageState.ERROR:
+                  return ServerErrorWidget();
+                  break;
+                default:
+                  return loadingPageState();
+                  break;
+              }
+            }));
   }
-
 
 // submit btn
 
@@ -81,14 +78,18 @@ class _LoginScreenState extends LoginActivity {
           ),
           color: orange,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ));
   }
+
 // loading state
 
   Center loadingPageState() {
-    return Center(child: CircularProgressIndicator(),);
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
+
 // idle state
 
   Widget loginPageIdleState(BuildContext context) {
@@ -109,17 +110,62 @@ class _LoginScreenState extends LoginActivity {
             SizedBox(
               height: context.scale(5),
             ),
-            Text('Log back into your account', style: headingTxt(14, context,color: Colors.black87)),
+            Text('Log back into your account',
+                style: headingTxt(14, context, color: Colors.black87)),
             SizedBox(
               height: context.scale(15),
             ),
             emailField(),
             passwordField(),
             SizedBox(
-              height: context.scale(10),
+              height: context.scale(15),
             ),
-            switcherRow(context),
-            loginBtn(context)
+//            switcherRow(context),
+            loginBtn(context),
+            SizedBox(
+              height: context.scale(5),
+            ),
+
+            Center(
+              child: FlatButton(
+                child:
+                    Text('Forgot Password ?', style: headingTxt(14, context)),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (dialogContext) {
+                        return AlertDialog(
+                          elevation: 0,
+                          title: Text('Forget Password?'),
+                          content: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            hintText: 'eg:abc@gmail.com'
+                          ),
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Cancel'),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                submit();
+
+                              },
+                              child: Text('Send'),
+                            )
+                          ],
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                        );
+                      });
+                },
+              ),
+            )
           ],
         ),
         height: context.scale(600),
@@ -148,7 +194,10 @@ class _LoginScreenState extends LoginActivity {
           style: headingTxt(14, context),
         ),
         Spacer(),
-        FlatButton(child: Text('Forgot?',style: headingTxt(14, context)),onPressed: (){},)
+        FlatButton(
+          child: Text('Forgot?', style: headingTxt(14, context)),
+          onPressed: () {},
+        )
       ],
     );
   }
@@ -157,41 +206,42 @@ class _LoginScreenState extends LoginActivity {
 
   Widget passwordField() {
     return StreamBuilder<bool>(
-      stream: obscureCntlr.stream,
-      initialData: true,
-      builder: (context, snapshot) {
-        return Container(
-          margin: EdgeInsets.only(top: 13),
-          child: TextFormField(
-            keyboardType: TextInputType.visiblePassword,
-            obscureText: snapshot.data,
-            validator: (val) {
-              if (val.isEmpty) {
-                return 'Please Enter Your Password';
-              }
-              return null;
-            },
-            onSaved: (val) {
-              password = val;
-              print('$password');
-            },
-            style: inputFieldPasswordTextStyle,
-            decoration: InputDecoration(
-              hintText: 'Password',
-              suffixIcon: IconButton(
-                onPressed: (){
-                  togglePassword(snapshot.data);
-
-                },
-                icon: snapshot.data ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
+        stream: obscureCntlr.stream,
+        initialData: true,
+        builder: (context, snapshot) {
+          return Container(
+            margin: EdgeInsets.only(top: 13),
+            child: TextFormField(
+              keyboardType: TextInputType.visiblePassword,
+              obscureText: snapshot.data,
+              validator: (val) {
+                if (val.isEmpty) {
+                  return 'Please Enter Your Password';
+                }
+                return null;
+              },
+              onSaved: (val) {
+                password = val;
+                print('$password');
+              },
+              style: inputFieldPasswordTextStyle,
+              decoration: InputDecoration(
+                hintText: 'Password',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    togglePassword(snapshot.data);
+                  },
+                  icon: snapshot.data
+                      ? Icon(Icons.visibility_off)
+                      : Icon(Icons.visibility),
+                ),
+                hintStyle: inputFieldHintPaswordTextStyle,
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 8, vertical: 10),
               ),
-              hintStyle: inputFieldHintPaswordTextStyle,
-              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             ),
-          ),
-        );
-      }
-    );
+          );
+        });
   }
 
 // Email

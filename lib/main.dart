@@ -9,7 +9,7 @@ import 'package:gmfashions/layouts/loading/loading_screen.dart';
 import 'package:gmfashions/layouts/login/login_screen.dart';
 import 'package:gmfashions/layouts/product_details/product_details.dart';
 import 'package:gmfashions/layouts/product_details/product_details_activity.dart';
-import 'package:gmfashions/layouts/profile/profile_screen.dart';
+import 'package:gmfashions/layouts/profile/settings_screen.dart';
 import 'package:gmfashions/layouts/register/register_screen.dart';
 import 'package:gmfashions/layouts/sub_category/sub_category_screen.dart';
 import 'package:gmfashions/profile_screen.dart';
