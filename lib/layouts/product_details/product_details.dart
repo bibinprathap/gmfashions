@@ -42,33 +42,32 @@ class _ProductDetailsState extends ProductDetailsActivity {
       backgroundColor: white,
       endDrawer: DashboardDrawer(
         isUserNull: widget.isUserNull,
-
       ),
       body: StreamBuilder<ProductDetailsState>(
-        stream: productDetailsctr.stream,
-        initialData: ProductDetailsState.LOADING,
-        builder: (context, snapshot) {
-          switch (snapshot.data) {
-            case ProductDetailsState.IDLE:
-              return productDetailsWidget(context);
-              break;
-            case ProductDetailsState.LOADING:
-              return loadingWidget(context);
-              break;
-            case ProductDetailsState.EMPTY:
-            //return Center(child: Text('List Empty',style: headingTxt(16, context),));
-              return Container();
-              break;
-            case ProductDetailsState.ERROR:
-              return ServerErrorWidget();
-              break;
-            default:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-              break;
-          }
-        }),
+          stream: productDetailsctr.stream,
+          initialData: ProductDetailsState.LOADING,
+          builder: (context, snapshot) {
+            switch (snapshot.data) {
+              case ProductDetailsState.IDLE:
+                return productDetailsWidget(context);
+                break;
+              case ProductDetailsState.LOADING:
+                return loadingWidget(context);
+                break;
+              case ProductDetailsState.EMPTY:
+                //return Center(child: Text('List Empty',style: headingTxt(16, context),));
+                return Container();
+                break;
+              case ProductDetailsState.ERROR:
+                return ServerErrorWidget();
+                break;
+              default:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+                break;
+            }
+          }),
     );
   }
 
@@ -80,7 +79,7 @@ class _ProductDetailsState extends ProductDetailsActivity {
         return <Widget>[
           SliverOverlapAbsorber(
             handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-            child: SliverSafeArea(
+            sliver: SliverSafeArea(
               top: false,
               sliver: SliverAppBar(
                 iconTheme: IconThemeData(color: black),
@@ -94,23 +93,23 @@ class _ProductDetailsState extends ProductDetailsActivity {
                     children: <Widget>[
                       imgList == null
                           ? Center(
-                        child: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
 //                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Image.asset(
-                                'images/errorImage.png',
-                                width: context.scale(140),
+                                  children: <Widget>[
+                                    Image.asset(
+                                      'images/errorImage.png',
+                                      width: context.scale(140),
+                                    ),
+                                    Text(
+                                      'No Image Found',
+                                      style: headingTxt(14, context),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              Text(
-                                'No Image Found',
-                                style: headingTxt(14, context),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
+                            )
                           : Center(child: imageDetails(context))
 
 //                      Positioned.fill(
@@ -138,16 +137,16 @@ class _ProductDetailsState extends ProductDetailsActivity {
                   ),
                 ),
                 actions: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    scaffoldKey.currentState.openEndDrawer();
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    size: context.scale(20),
-                    color: black,
+                  IconButton(
+                    onPressed: () {
+                      scaffoldKey.currentState.openEndDrawer();
+                    },
+                    icon: Icon(
+                      Icons.menu,
+                      size: context.scale(20),
+                      color: black,
+                    ),
                   ),
-                ),
                 ],
               ),
             ),
@@ -155,7 +154,7 @@ class _ProductDetailsState extends ProductDetailsActivity {
         ];
       },
       body: SingleChildScrollView(
-       physics: ScrollPhysics(),
+        physics: ScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -172,7 +171,9 @@ class _ProductDetailsState extends ProductDetailsActivity {
 
   // details Container -> options,Qty,Colors,Customer reviews
 
-  Container productDetails(BuildContext context,) {
+  Container productDetails(
+    BuildContext context,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
       width: double.infinity,
@@ -217,20 +218,20 @@ class _ProductDetailsState extends ProductDetailsActivity {
             relatedProduct == null
                 ? Container()
                 : Row(
-              children: <Widget>[
-                Text(
-                  'You may also like:',
-                  style: headingTxt(14, context,fontWeight: FontWeight.w700),
-                ),
-                Spacer(),
-                FlatButton(
-                  textColor: blue,
-                  child: Text('View All >'),
-                  onPressed: () {
-                  },
-                )
-              ],
-            ),
+                    children: <Widget>[
+                      Text(
+                        'You may also like:',
+                        style: headingTxt(14, context,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Spacer(),
+                      FlatButton(
+                        textColor: blue,
+                        child: Text('View All >'),
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
             SizedBox(
               height: context.scale(15),
             ),
@@ -250,26 +251,26 @@ class _ProductDetailsState extends ProductDetailsActivity {
     return specialList == null
         ? Container()
         : SingleChildScrollView(
-      physics: ScrollPhysics(),
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          Text(
-            'Rs. $dFinalPrice/-'.replaceAll('.0', ''),
-          ),
-          SizedBox(
-            width: context.scale(10),
-          ),
-          Chip(
-            backgroundColor: orange2,
-            label: Text(
-              '-$iDiscount%',
-              style: TextStyle(color: white),
+            physics: ScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: <Widget>[
+                Text(
+                  'Rs. $dFinalPrice/-'.replaceAll('.0', ''),
+                ),
+                SizedBox(
+                  width: context.scale(10),
+                ),
+                Chip(
+                  backgroundColor: orange2,
+                  label: Text(
+                    '-$iDiscount%',
+                    style: TextStyle(color: white),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   /// buy Now button
@@ -282,23 +283,23 @@ class _ProductDetailsState extends ProductDetailsActivity {
           bool isBuyNowBtnLoading = snapshot.data;
           return isBuyNowBtnLoading
               ? Center(
-            child: CircularProgressIndicator(),
-          )
+                  child: CircularProgressIndicator(),
+                )
               : SizedBox(
-            width: double.infinity,
-            child: OutlineButton(
-              onPressed: () {
-                buyNowButton(
-                    quantity, amount, context, basicDetailsList[0]);
-              },
-              child: Text(
-                'Buy Now',
-              ),
-              textColor: orange,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-            ),
-          );
+                  width: double.infinity,
+                  child: OutlineButton(
+                    onPressed: () {
+                      buyNowButton(
+                          quantity, amount, context, basicDetailsList[0]);
+                    },
+                    child: Text(
+                      'Buy Now',
+                    ),
+                    textColor: orange,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                );
         });
   }
 
@@ -312,23 +313,23 @@ class _ProductDetailsState extends ProductDetailsActivity {
           bool isCartBtnLoading = snapshot.data;
           return isCartBtnLoading
               ? Center(
-            child: CircularProgressIndicator(),
-          )
+                  child: CircularProgressIndicator(),
+                )
               : SizedBox(
-            width: double.infinity,
-            child: RaisedButton(
-              onPressed: () {
-                addToCartButton(
-                    quantity, amount, context, basicDetailsList[0]);
-              },
-              child: Text(
-                'Add to Cart',
-              ),
-              color: orange,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-            ),
-          );
+                  width: double.infinity,
+                  child: RaisedButton(
+                    onPressed: () {
+                      addToCartButton(
+                          quantity, amount, context, basicDetailsList[0]);
+                    },
+                    child: Text(
+                      'Add to Cart',
+                    ),
+                    color: orange,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                );
         });
   }
 
@@ -368,7 +369,7 @@ class _ProductDetailsState extends ProductDetailsActivity {
           children: <Widget>[
             Text(
               'Customer Reviews',
-              style: headingTxt(14, context,fontWeight: FontWeight.w700),
+              style: headingTxt(14, context, fontWeight: FontWeight.w700),
             ),
             FlatButton(
               textColor: blue,
@@ -465,53 +466,53 @@ class _ProductDetailsState extends ProductDetailsActivity {
       children: <Widget>[
         Text(
           'Quantity:',
-          style: headingTxt(14, context,fontWeight: FontWeight.w700),
+          style: headingTxt(14, context, fontWeight: FontWeight.w700),
         ),
         SizedBox(
           width: context.scale(10),
         ),
         quantity <= 1
             ? SizedBox(
-          height: context.scale(30),
-          child: StreamBuilder<bool>(
-            initialData: false,
-            stream: qtyLoadingCntlr.stream,
-            builder: (context, snapshot) {
-              return FloatingActionButton(
-                mini: true,
-                heroTag: 'qty -',
-                backgroundColor: grey,
-                shape: CircleBorder(side: BorderSide(width: 1, color: grey)),
-                elevation: 0,
-                onPressed: () {
-                  quantityMinus(price);
-                },
-                child: Icon(
-                  Icons.remove,
-                  color: white,
-                  size: context.scale(18),
-                ),
-              );
-            }
-          ),
-        )
+                height: context.scale(30),
+                child: StreamBuilder<bool>(
+                    initialData: false,
+                    stream: qtyLoadingCntlr.stream,
+                    builder: (context, snapshot) {
+                      return FloatingActionButton(
+                        mini: true,
+                        heroTag: 'qty -',
+                        backgroundColor: grey,
+                        shape: CircleBorder(
+                            side: BorderSide(width: 1, color: grey)),
+                        elevation: 0,
+                        onPressed: () {
+                          quantityMinus(price);
+                        },
+                        child: Icon(
+                          Icons.remove,
+                          color: white,
+                          size: context.scale(18),
+                        ),
+                      );
+                    }),
+              )
             : SizedBox(
-          height: context.scale(30),
-          child: FloatingActionButton(
-            mini: true,
-            backgroundColor: white,
-            shape: CircleBorder(side: BorderSide(width: 1)),
-            elevation: 0,
-            onPressed: () {
-              quantityMinus(price);
-            },
-            child: Icon(
-              Icons.remove,
-              color: black,
-              size: context.scale(18),
-            ),
-          ),
-        ),
+                height: context.scale(30),
+                child: FloatingActionButton(
+                  mini: true,
+                  backgroundColor: white,
+                  shape: CircleBorder(side: BorderSide(width: 1)),
+                  elevation: 0,
+                  onPressed: () {
+                    quantityMinus(price);
+                  },
+                  child: Icon(
+                    Icons.remove,
+                    color: black,
+                    size: context.scale(18),
+                  ),
+                ),
+              ),
         Text(
           '$quantity',
           //textScaleFactor: 0.5,
@@ -546,7 +547,7 @@ class _ProductDetailsState extends ProductDetailsActivity {
           },
           label: Text(
             'Size chart',
-            style: headingTxt(14, context,color: blue),
+            style: headingTxt(14, context, color: blue),
           ),
         )
       ],
@@ -556,77 +557,73 @@ class _ProductDetailsState extends ProductDetailsActivity {
   /// size chart bottom sheet
 
   void sizeChartBottomSheet(BuildContext context) {
-    String url = basicDetailsList[0].sizeChartDescription ;
+    String url = basicDetailsList[0].sizeChartDescription;
 
     print('url -$url');
     text = unescape.convert(url);
     showBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
-        builder: (context) =>
-        (DraggableScrollableSheet(
-          expand: true,
-          initialChildSize: 0.9,
-          minChildSize: 0.5,
-          maxChildSize: 0.9,
-          builder: (BuildContext context, myscrollController) {
-            return Container(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[500],
-                    //                          spreadRadius: 1,
-                    blurRadius: 5.0,
-                    offset: Offset(3.0, 0),
-                  )
-                ],
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8)),
-                color: white,
-              ),
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: context.scale(10),
+        builder: (context) => (DraggableScrollableSheet(
+              expand: true,
+              initialChildSize: 0.9,
+              minChildSize: 0.5,
+              maxChildSize: 0.9,
+              builder: (BuildContext context, myscrollController) {
+                return Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[500],
+                        //                          spreadRadius: 1,
+                        blurRadius: 5.0,
+                        offset: Offset(3.0, 0),
+                      )
+                    ],
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8)),
+                    color: white,
                   ),
-                  Text(
-                    'Size Chart',
-                    style: headingTxt(16, context,
-                        fontWeight: FontWeight.bold),
-                    //textAlign: TextAlign.center,
-                  ),
-                  Divider(),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: context.scale(10),
+                      ),
+                      Text(
+                        'Size Chart',
+                        style: headingTxt(16, context,
+                            fontWeight: FontWeight.bold),
+                        //textAlign: TextAlign.center,
+                      ),
+                      Divider(),
 //                        SizedBox(
 //                          height: context.scale(20),
 //                        ),
-                  SizedBox(
-                      width: double.infinity,
-                      child: imageWidget(
-                          imageURL: basicDetailsList[0].sizeChartImage,
-                          width: context.scale(100),
-                          height: context.scale(100))),
-                  Divider(),
-                  Expanded(
-                    child: WebviewScaffold(
-                        appCacheEnabled: true,
-                        withJavascript: true,
-                        url: Uri.dataFromString(
-                          text,
-                          mimeType: 'text/html',
-                          encoding: Encoding.getByName("UTF-8"),
-                        ).toString()),
-                  )
-                ],
-              ),
-            );
-          },
-        )));
+                      SizedBox(
+                          width: double.infinity,
+                          child: imageWidget(
+                              imageURL: basicDetailsList[0].sizeChartImage,
+                              width: context.scale(100),
+                              height: context.scale(100))),
+                      Divider(),
+                      Expanded(
+                        child: WebviewScaffold(
+                            appCacheEnabled: true,
+                            withJavascript: true,
+                            url: Uri.dataFromString(
+                              text,
+                              mimeType: 'text/html',
+                              encoding: Encoding.getByName("UTF-8"),
+                            ).toString()),
+                      )
+                    ],
+                  ),
+                );
+              },
+            )));
   }
 
   Widget draggableSheet() {
@@ -645,9 +642,9 @@ class _ProductDetailsState extends ProductDetailsActivity {
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                       title: Text(
-                        'Dish',
-                        style: TextStyle(color: Colors.black54),
-                      ));
+                    'Dish',
+                    style: TextStyle(color: Colors.black54),
+                  ));
                 },
               ),
             );
@@ -667,7 +664,7 @@ class _ProductDetailsState extends ProductDetailsActivity {
         children: <Widget>[
           Text(
             optionList[index].name,
-            style: headingTxt(14, context,fontWeight: FontWeight.w700),
+            style: headingTxt(14, context, fontWeight: FontWeight.w700),
           ), // option txt
           SizedBox(
             height: context.scale(10),
@@ -700,9 +697,8 @@ class _ProductDetailsState extends ProductDetailsActivity {
                         duration: Duration(seconds: 1),
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: optionSelected
-                                    ? Colors.transparent
-                                    : red,
+                                color:
+                                    optionSelected ? Colors.transparent : red,
 //                                color: optionList[index].name == 'Color'
 //                                    ? Colors.transparent
 //                                    : grey,
@@ -711,17 +707,17 @@ class _ProductDetailsState extends ProductDetailsActivity {
                       ),
                       option.isSelected
                           ? Container(
-                          padding: EdgeInsets.all(4),
-                          height: context.scale(30),
-                          width: context.scale(30),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: blue, width: 2),
-                              borderRadius: BorderRadius.circular(8)))
+                              padding: EdgeInsets.all(4),
+                              height: context.scale(30),
+                              width: context.scale(30),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: blue, width: 2),
+                                  borderRadius: BorderRadius.circular(8)))
                           : new Container(
-                        padding: EdgeInsets.all(4),
-                        height: context.scale(30),
-                        width: context.scale(30),
-                      ),
+                              padding: EdgeInsets.all(4),
+                              height: context.scale(30),
+                              width: context.scale(30),
+                            ),
                     ],
                   ),
                 ),
@@ -747,36 +743,34 @@ class _ProductDetailsState extends ProductDetailsActivity {
         Text(
           'Rs.${amount == null ? price : amount} /-',
           style:
-          headingTxt(16, context,color: grey,fontWeight: FontWeight.w700),
+              headingTxt(16, context, color: grey, fontWeight: FontWeight.w700),
         ),
         Spacer(),
         ratingList == null
             ? Container()
             : Row(
-          children: <Widget>[
-            SmoothStarRating(
-              allowHalfRating: false,
-              onRatingChanged: (v) {
-                ratingChange(v);
-              },
-              starCount: 5,
-              rating: double.parse(ratingList[0].rating.substring(0, 4)),
-              size: context.scale(14),
-              color: orange,
-              borderColor: orange,
-            ),
-            SizedBox(
-              width: context.scale(10),
-            ),
-            Text(
-              '${ratingList[0].total} Review${ratingList[0].total == '1'
-                  ? ''
-                  : 's'}',
+                children: <Widget>[
+                  SmoothStarRating(
+                    allowHalfRating: false,
+                    onRatingChanged: (v) {
+                      ratingChange(v);
+                    },
+                    starCount: 5,
+                    rating: double.parse(ratingList[0].rating.substring(0, 4)),
+                    size: context.scale(14),
+                    color: orange,
+                    borderColor: orange,
+                  ),
+                  SizedBox(
+                    width: context.scale(10),
+                  ),
+                  Text(
+                    '${ratingList[0].total} Review${ratingList[0].total == '1' ? '' : 's'}',
 //                    '${ratingList[0].total} Review ${ratingList[0].total.length < 2 ? '' : 's'}',
-              style: TextStyle(fontSize: 14, color: red),
-            ),
-          ],
-        ),
+                    style: TextStyle(fontSize: 14, color: red),
+                  ),
+                ],
+              ),
       ],
     );
   }
@@ -785,15 +779,8 @@ class _ProductDetailsState extends ProductDetailsActivity {
 
   Widget imageDetails(BuildContext context) {
     return BannerSwiper(
-      height: (MediaQuery
-          .of(context)
-          .size
-          .height * 0.5).round(),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width
-          .round(),
+      height: (MediaQuery.of(context).size.height * 0.5).round(),
+      width: MediaQuery.of(context).size.width.round(),
       spaceMode: false,
       length: imgList.length,
       getwidget: (index) {

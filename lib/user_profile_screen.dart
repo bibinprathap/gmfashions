@@ -20,7 +20,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               SliverOverlapAbsorber(
                 handle:
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                child: SliverSafeArea(
+                sliver: SliverSafeArea(
                   top: false,
                   sliver: SliverAppBar(
                     elevation: 0,

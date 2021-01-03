@@ -30,8 +30,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          appBarTheme: AppBarTheme(textTheme: GoogleFonts.latoTextTheme()),
-            primarySwatch: red, textTheme: GoogleFonts.latoTextTheme()),
+            appBarTheme: AppBarTheme(textTheme: GoogleFonts.latoTextTheme()),
+            primarySwatch: red,
+            textTheme: GoogleFonts.latoTextTheme()),
         home: LoadingScreen(),
 //      home: ProfileScreen()
       ),
